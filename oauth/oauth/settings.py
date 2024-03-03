@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'SECRET_KEY'
+SECRET_KEY = 'django-insecure-9bl+k%$nd&6$w8#k8*o=fo(ii)-686)rt$l#qclxvk#x=lb$_!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth2_provider',
+    'rest_framework',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -122,3 +125,30 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'role:admin': 'Admins scope',
+               'role:manager': 'Managers scope',
+               'role:employer': 'Employers scope',
+               'task:create': 'Can create tasks',
+               'task:read': 'Can read tasks',
+               'task:shuffle': 'Can shuffle tasks',
+               'task:close': 'Can close tasks',
+               'introspection': 'Introspect token scope'},
+    'SCOPES_BACKEND_CLASS': 'oauth.backends.CustomScopesBackend',
+}
+
+LOGIN_URL = '/admin/login/'
+CORS_ORIGIN_ALLOW_ALL = True
+
+KAFKA_TOPIC_PROFILES_ROLE_CHANGED = 'profiles.role_changed'
+KAFKA_SERVER = 'localhost:9092'
