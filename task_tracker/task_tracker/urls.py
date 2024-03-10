@@ -4,7 +4,6 @@ from django.urls import path
 from task.views import TaskList, TaskCreate, TaskClose, TaskShuffle
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('tasks/', TaskList.as_view()),
     path('create_tasks/', TaskCreate.as_view()),
     path('close_tasks/<pk>', TaskClose.as_view()),
