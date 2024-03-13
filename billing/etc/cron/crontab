@@ -1,0 +1,1 @@
+0 0 * * * python manage.py process_billing_cycle

@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cw3@(luncl#tl%15&wm^$qvv*f)^8=2fk53fy)0%da=erfaah3'
+SECRET_KEY = 'django-insecure-2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -123,8 +123,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-OAUTH2_ID = '1'
-OAUTH2_SECRET = '2'
+OAUTH2_ID = '-'
+OAUTH2_SECRET = '-'
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:8000/o/introspect/',
     'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (OAUTH2_ID, OAUTH2_SECRET),

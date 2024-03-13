@@ -2,9 +2,9 @@ from django.db import migrations
 from account.models import Role
 
 ROLE_TO_SCOPES = {
-    'admin': 'task:create task:read task:assign role:admin',
-    'manager': 'task:create task:read task:assign role:manager',
-    'employer': 'task:create task:read task:close role:employer'
+    'admin': 'task:create task:read task:assign role:admin, balance:read',
+    'manager': 'task:create task:read task:assign role:manager balance:read',
+    'employer': 'task:create task:read task:close role:employer balance:read'
 }
 
 
