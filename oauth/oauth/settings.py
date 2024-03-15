@@ -152,3 +152,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 KAFKA_TOPIC_PROFILES_ROLE_CHANGED = 'profiles.role_changed'
 KAFKA_SERVER = 'localhost:9092'
+
+POPUG_JSON_SCHEMA_LIB = '../../../popug_json_schema/'
+USER_ROLE_CHANGED_SCHEMA = 'user_role_changed'
+USER_ROLE_CHANGED_SCHEMA_VERSION = 1

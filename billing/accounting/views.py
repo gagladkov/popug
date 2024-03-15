@@ -22,10 +22,10 @@ class TransactionList(APIView):
         scopes = token.scope
 
         if 'role:employer' in scopes.split():
-            queryset = Transaction.objects.filter(assign=token.user.profile)
+            queryset = Transaction.objects.filter(assigned_profile=token.user.profile)
         else:
             company_profile = get_company_profile()
-            queryset = Transaction.objects.filter(assign=company_profile)
+            queryset = Transaction.objects.filter(assigned_profile=company_profile)
         serializer = TransactionSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

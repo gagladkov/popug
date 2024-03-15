@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 
 from task.views import TaskList, TaskCreate, TaskClose, TaskShuffle

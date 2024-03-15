@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TaskCreated.v1",
+    "description": "Schema for task created",
+    "type": "object",
+    "properties": {
+        "uuid": {"type": "string"},
+        "title": {"type": "string"},
+        "description": {"type": "string"},
+        "is_open": {"type": "boolean"},
+        "assigned_user_uuid": {"type": "string"}
+},
+    "required": ["uuid", "title", "description", "is_open", "assigned_user_uuid"],
+    "metadata": {
+        "version": "1.0",
+        "author": "Grisha Gladkov",
+        "created_at": "2024-03-14"
+    }
+}

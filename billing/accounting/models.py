@@ -1,8 +1,7 @@
 import uuid as uuid
+
 from django.contrib.auth.models import User
 from django.db import models
-
-from accounting.logic import get_current_billing_cycle
 
 
 class Profile(models.Model):
@@ -16,7 +15,7 @@ class Profile(models.Model):
 class Task(models.Model):
     id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    assign = models.ForeignKey(to=Profile, default=None, on_delete=models.SET_NULL)
+    assigned_profile = models.ForeignKey(to=Profile, default=None, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255, editable=False)
     is_open = models.BooleanField(default=True)
     closed_at = models.DateTimeField(null=True, default=None)
@@ -38,5 +37,5 @@ class Transaction(models.Model):
     description = models.CharField(max_length=255, editable=False)
     credit = models.IntegerField(default=0, editable=False)
     debit = models.IntegerField(default=0, editable=False)
-    billing_cycle = models.ForeignKey(BillingCycle, on_delete=models.CASCADE, default=get_current_billing_cycle(), editable=False)
+    billing_cycle = models.ForeignKey(BillingCycle, on_delete=models.CASCADE, editable=False)
     created_at = models.DateTimeField(auto_created=True, auto_now_add=True, db_index=True)

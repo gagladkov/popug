@@ -18,28 +18,23 @@ def generate_task_message(task):
     return task_message
 
 
-def assign_tasks():
+def assign_tasks(topic):
     tasks = Task.objects.filter(is_open=True)
     messages = []
     for task in tasks:
         count = Profile.objects.filter(role='employer').count()
         random_index = random.randint(0, count - 1)
         random_user = Profile.objects.filter(role='employer')[random_index]
-        task.assign = random_user
+        task.assigned_profile = random_user
         task.save()
         message = generate_task_message(task=task)
         messages.append(message)
-    send_batched_messages(topic=settings.KAFKA_TOPIC_TASK_TRACKER_ASSIGNED, messages=messages)
+    send_batched_messages(topic=topic, messages=messages)
 
 
 def send_task_closed_message(task):
     message = generate_task_message(task)
     produce_message(topic=settings.KAFKA_TOPIC_TASK_TRACKER_CLOSED, message=message)
-
-
-def send_task_created_message(task):
-    message = generate_task_message(task)
-    produce_message(topic=settings.KAFKA_TOPIC_TASK_TRACKER_CREATED, message=message)
 
 
 def update_or_create_profile(profile_data):
