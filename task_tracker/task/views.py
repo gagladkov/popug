@@ -6,9 +6,10 @@ from oauth2_provider.contrib.rest_framework import TokenHasScope, OAuth2Authenti
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from task.logic import assign_tasks, send_task_closed_message, send_task_created_message
+from task.logic import assign_tasks, send_task_closed_message
 from task.models import Task
 from task.serializer import TaskSerializer
+from task_tracker import settings
 
 
 class TaskList(APIView):
@@ -23,7 +24,7 @@ class TaskList(APIView):
 
         # только 3 роли, кроме работников - менеджер и админ могут смотреть все
         if 'role:employer' in scopes.split():
-            queryset = Task.objects.filter(assign=token.user.profile)
+            queryset = Task.objects.filter(assigned_profile=token.user.profile)
         else:
             queryset = Task.objects.all()
         serializer = TaskSerializer(queryset, many=True)
@@ -39,9 +40,8 @@ class TaskCreate(APIView):
     def post(self, request, *args, **kwargs):
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
-            saved_task = serializer.save()
-            send_task_created_message(task=saved_task)
-            assign_tasks()
+            serializer.save()
+            assign_tasks(topic=settings.KAFKA_TOPIC_TASK_TRACKER_CREATED)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -70,5 +70,5 @@ class TaskShuffle(APIView):
     allowed_methods = ['post']
 
     def post(self, request, *args, **kwargs):
-        assign_tasks()
+        assign_tasks(topic=settings.KAFKA_TOPIC_TASK_TRACKER_ASSIGNED)
         return Response({'status': 'Tasks have been assigned.'}, status=status.HTTP_200_OK)

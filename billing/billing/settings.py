@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth2_provider',
+    'corsheaders',
     'billing',
+    'accounting',
+    'analytics'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +142,13 @@ KAFKA_TOPIC_TASK_TRACKER_ASSIGNED = 'tasktracker.assigned'
 KAFKA_TOPIC_TASK_TRACKER_CLOSED = 'tasktracker.closed'
 KAFKA_TOPIC_PROFILES_ROLE_CHANGED = 'profiles.role_changed'
 KAFKA_SERVER = 'localhost:9092'
+
+POPUG_JSON_SCHEMA_LIB = '../../../popug_json_schema/'
+TASK_ASSIGNED_SCHEMA = 'task_assigned'
+TASK_ASSIGNED_SCHEMA_VERSION = 1
+TASK_CREATED_SCHEMA = 'task_crated'
+TASK_CREATED_SCHEMA_VERSION = 1
+TASK_CLOSED_SCHEMA = 'task_closed'
+TASK_CLOSED_SCHEMA_VERSION = 1
+USER_ROLE_CHANGED_SCHEMA = 'user_role_changed'
+USER_ROLE_CHANGED_SCHEMA_VERSION = 1

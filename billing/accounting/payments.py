@@ -1,4 +1,4 @@
-from accounting.logic import get_current_billing_cycle, get_company_profile
+from accounting.logic import get_company_profile, get_current_billing_cycle
 from accounting.models import BillingCycle, Profile, Transaction
 
 
@@ -10,7 +10,8 @@ def make_payload_to_profile_card(profile):
         description = "Payload to profile"
         Transaction.objects.create(profile=profile,
                                    credit=profile.balance,
-                                   description=description)
+                                   description=description,
+                                   billing_cycle=get_current_billing_cycle())
         profile.balance = 0
         profile.save()
         # client.mail.send_check(profile, amount)

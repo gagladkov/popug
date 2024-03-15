@@ -12,7 +12,7 @@ class Profile(models.Model):
 class Task(models.Model):
     id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    assign = models.ForeignKey(to=Profile, on_delete=models.SET_NULL, default=None, null=True)
+    assigned_profile = models.ForeignKey(to=Profile, on_delete=models.SET_NULL, default=None, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     is_open = models.BooleanField(default=True, null=False, blank=False)
